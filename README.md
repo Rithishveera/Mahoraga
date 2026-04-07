@@ -47,14 +47,4 @@ Mahoraga does the same — a Red Agent invents attacks, a Blue Agent closes ever
 an Anomaly Engine monitors live behaviour, and a Governor prevents the defence from harming
 the host. The network hardens itself every single hour.
 
-## Demo Sequence (3 minutes)
 
-1. **0:00** — Landing page. Stats cards. Introduce Mahoraga.
-2. **0:20** — Dashboard. Network graph with 4 live nodes. Risk gauge ~15-20.
-3. **0:45** — Red Agent finds default creds. Risk spikes. Approval queue appears.
-4. **1:10** — Approve patch. Risk drops. Node turns green on graph.
-5. **1:40** — Red Agent adapts, finds XSS on web_server. Mahoraga principle demonstrated.
-6. **2:00** — Governor blocks Blue from touching protected service. Amber flash.
-7. **2:20** — Memory tab. Attack pattern table filling up.
-8. **2:45** — Agents tab. Red Agent reward curve showing learning.
-9. **3:00** — Return to Dashboard. Risk score lower than at start.

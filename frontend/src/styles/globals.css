@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --void:    #121212;
+  --void2:   #1a1a1a;
+  --surface: #1e1e1e;
+  --surface2:#242424;
+  --crimson: #FF3B30;
+  --amber:   #FF9F0A;
+  --silver:  #E5E5EA;
+  --dim:     #3a3a3a;
+  --muted:   #6e6e73;
+  --faint:   #2a2a2a;
+  --border:  rgba(229,229,234,0.06);
+  --border-crimson: rgba(255,59,48,0.25);
+  --border-amber:   rgba(255,159,10,0.25);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--silver);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: var(--void2); }
+::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* Typography */
+.font-mono    { font-family: 'JetBrains Mono', monospace; }
+.font-display { font-family: 'Syne', sans-serif; }
+
+/* Selection */
+::selection { background: rgba(255,59,48,0.25); color: #fff; }
+
+/* Glow utilities */
+.glow-crimson { text-shadow: 0 0 16px rgba(255,59,48,0.7); }
+.glow-amber   { text-shadow: 0 0 16px rgba(255,159,10,0.7); }
+
+/* Animations */
+@keyframes pulseCrimson {
+  0%,100% { opacity: 0.5; filter: drop-shadow(0 0 4px #FF3B30); }
+  50%     { opacity: 1;   filter: drop-shadow(0 0 14px #FF3B30); }
+}
+@keyframes pulseAmber {
+  0%,100% { opacity: 0.5; filter: drop-shadow(0 0 4px #FF9F0A); }
+  50%     { opacity: 1;   filter: drop-shadow(0 0 14px #FF9F0A); }
+}
+@keyframes slideUp {
+  0%   { transform: translateY(16px); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+@keyframes slideInTop {
+  from { transform: translateY(-10px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+@keyframes scan {
+  0%   { top: -2px; }
+  100% { top: 110%; }
+}
+@keyframes flicker {
+  0%,89%,91%,95%,100% { opacity: 1; }
+  90%   { opacity: 0.3; }
+  93%   { opacity: 0.7; }
+  94%   { opacity: 0.3; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes breathe {
+  0%,100% { transform: scale(1);    opacity: 0.6; }
+  50%     { transform: scale(1.05); opacity: 1; }
+}
+@keyframes attackPulse {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+.animate-pulse-crimson { animation: pulseCrimson 2s ease-in-out infinite; }
+.animate-pulse-amber   { animation: pulseAmber 2.5s ease-in-out infinite; }
+.animate-slide-up      { animation: slideUp 0.4s cubic-bezier(0.16,1,0.3,1); }
+.animate-slide-in      { animation: slideInTop 0.3s ease-out; }
+.animate-flicker       { animation: flicker 5s ease-in-out infinite; }
+.animate-fade-in       { animation: fadeIn 0.3s ease-out; }
+.animate-breathe       { animation: breathe 3s ease-in-out infinite; }
+.animate-attack-pulse  { animation: attackPulse 1s ease-out forwards; }

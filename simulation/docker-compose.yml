@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  web_server:
+    build: ./nodes/web_server
+    container_name: web_server
+    ports: ["5001:5001"]
+    networks: [mahoraga_net]
+    environment: [NODE_NAME=web_server, PORT=5001]
+
+  api_service:
+    build: ./nodes/api_service
+    container_name: api_service
+    ports: ["5002:5002"]
+    networks: [mahoraga_net]
+    environment: [NODE_NAME=api_service, PORT=5002]
+
+  database_node:
+    build: ./nodes/database_node
+    container_name: database_node
+    ports: ["5003:5003"]
+    networks: [mahoraga_net]
+    environment: [NODE_NAME=database_node, PORT=5003]
+
+  admin_panel:
+    build: ./nodes/admin_panel
+    container_name: admin_panel
+    ports: ["5004:5004"]
+    networks: [mahoraga_net]
+    environment: [NODE_NAME=admin_panel, PORT=5004]
+
+networks:
+  mahoraga_net:
+    driver: bridge

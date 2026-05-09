@@ -1,0 +1,1 @@
+{"feature_cols": ["login_hour", "api_calls_per_minute", "data_volume_mb", "endpoints_accessed", "failed_auth_count", "session_duration_min"], "n_features": 6, "contamination": "auto"}

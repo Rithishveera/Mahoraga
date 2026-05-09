@@ -1,11 +1,15 @@
-import os
+"""
+core/events.py — Event persistence.
+Patch: uses core.db for WAL + retry instead of raw sqlite3.connect().
+"""
+from __future__ import annotations
+
 import json
-import sqlite3
 from dataclasses import dataclass, field, asdict
 from datetime import datetime
 from uuid import uuid4
 
-from core.config import DB_PATH
+from core.db import execute, run_migrations
 
 
 @dataclass
@@ -25,42 +29,24 @@ class Event:
 
 
 def init_db() -> None:
-    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
-    with sqlite3.connect(DB_PATH) as conn:
-        conn.execute("""
-            CREATE TABLE IF NOT EXISTS events (
-                id TEXT PRIMARY KEY,
-                timestamp TEXT,
-                source TEXT,
-                target_node TEXT,
-                action TEXT,
-                outcome TEXT,
-                severity TEXT,
-                risk_delta REAL,
-                details TEXT
-            )
-        """)
-        conn.commit()
+    run_migrations()
 
 
 def save_event(event: Event) -> None:
-    with sqlite3.connect(DB_PATH) as conn:
-        conn.execute(
-            "INSERT OR REPLACE INTO events VALUES (?,?,?,?,?,?,?,?,?)",
-            (
-                event.id, event.timestamp, event.source, event.target_node,
-                event.action, event.outcome, event.severity,
-                event.risk_delta, json.dumps(event.details),
-            ),
-        )
-        conn.commit()
+    execute(
+        "INSERT OR REPLACE INTO events VALUES (?,?,?,?,?,?,?,?,?)",
+        (
+            event.id, event.timestamp, event.source, event.target_node,
+            event.action, event.outcome, event.severity,
+            event.risk_delta, json.dumps(event.details),
+        ),
+    )
 
 
 def get_recent_events(n: int = 50) -> list[dict]:
-    with sqlite3.connect(DB_PATH) as conn:
-        rows = conn.execute(
-            "SELECT * FROM events ORDER BY timestamp DESC LIMIT ?", (n,)
-        ).fetchall()
+    rows = execute(
+        "SELECT * FROM events ORDER BY timestamp DESC LIMIT ?", (n,)
+    )
     return [
         {
             "id": r[0], "timestamp": r[1], "source": r[2],
